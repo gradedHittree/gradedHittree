@@ -1,0 +1,2 @@
+# Hashes of file build rules.
+cb2ef37e0327e98b848f908dc3098cea ruby/eventTree2HitTreeGenRUBY_wrap.cxx
