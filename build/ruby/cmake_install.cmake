@@ -1,4 +1,4 @@
-# Install script for directory: /Users/goroyabu/Soft/new_hittree_soft/ruby
+# Install script for directory: /Users/goroyabu/Soft/gradedHittree/ruby
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -36,11 +36,11 @@ if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMP
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/Users/goroyabu/lib/ruby" TYPE MODULE FILES "/Users/goroyabu/Soft/new_hittree_soft/build/ruby/eventTree2HitTreeGen.bundle")
+file(INSTALL DESTINATION "/Users/goroyabu/lib/ruby" TYPE MODULE FILES "/Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGen.bundle")
   if(EXISTS "$ENV{DESTDIR}/Users/goroyabu/lib/ruby/eventTree2HitTreeGen.bundle" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}/Users/goroyabu/lib/ruby/eventTree2HitTreeGen.bundle")
     execute_process(COMMAND "/usr/bin/install_name_tool"
-      -change "/Users/goroyabu/Soft/new_hittree_soft/build/libEventTree2HitTreeGen.dylib" "libEventTree2HitTreeGen.dylib"
+      -change "/Users/goroyabu/Soft/gradedHittree/build/libEventTree2HitTreeGen.dylib" "libEventTree2HitTreeGen.dylib"
       "$ENV{DESTDIR}/Users/goroyabu/lib/ruby/eventTree2HitTreeGen.bundle")
     execute_process(COMMAND /usr/bin/install_name_tool
       -delete_rpath "/Users/goroyabu/lib"

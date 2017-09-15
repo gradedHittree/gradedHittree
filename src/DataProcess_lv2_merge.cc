@@ -66,25 +66,6 @@ void DataProcess_lv2_merge::merge(){
     if(hist_disty_epi->GetEntries()!=1)merged_delta_y = (double)hist_disty_epi->GetRMS();
     if(hist_distz_epi->GetEntries()!=1)merged_delta_z = (double)hist_distz_epi->GetRMS();
 
-    
-    /*
-    double max_epi = -1;
-    int max_index = -1;
-    for(auto itr = epi.begin(); itr != epi.end(); ++itr){
-        merged_epi += *itr;
-        if(*itr > max_epi){
-            max_epi = *itr;
-            max_index = itr - epi.begin();
-        }
-    }
-    merged_pos_x = pos_x[max_index];
-    merged_pos_y = pos_y[max_index];
-    merged_pos_z = pos_z[max_index];
-
-    merged_delta_x = delta_x[max_index];
-    merged_delta_y = delta_y[max_index];
-    merged_delta_z = delta_z[max_index];
-    */
 }
 // 
 
@@ -92,10 +73,9 @@ void DataProcess_lv2_merge::extract_signal_over_threshold(){
     int n = eventData_lv1->get_nsignal();
     for(int i = n-1; i >= 0; --i){        
         double _epi = eventData_lv1->get_epi(i);
-	double _pedesigma = eventData_lv1->get_pedesigma(i);
-        if(_pedesigma>0 && _epi < 5*_pedesigma)eventData_lv1->deleteSignal(i);
+	double _ethre = eventData_lv1->get_ethre(i);
+        if(_ethre>0 && _epi<_ethre)eventData_lv1->deleteSignal(i);
     }
-
 }
 
 bool DataProcess_lv2_merge::isAdjacent(int i){
@@ -140,9 +120,6 @@ void DataProcess_lv2_merge::fill_signal_into_vector(int i){
     if(hist_distx_epi->GetBinContent(binx)==0)hist_distx_epi->Fill(temp_pos_x,eventData_lv1->get_epi(i));
     if(hist_disty_epi->GetBinContent(biny)==0)hist_disty_epi->Fill(temp_pos_y,eventData_lv1->get_epi(i));
     if(hist_distz_epi->GetBinContent(binz)==0)hist_distz_epi->Fill(temp_pos_z,eventData_lv1->get_epi(i));
-    //hist_distx_epi->SetBinContent(binx,eventData_lv1->get_epi(i));
-    //hist_disty_epi->SetBinContent(biny,eventData_lv1->get_epi(i));
-    //hist_distz_epi->SetBinContent(binz,eventData_lv1->get_epi(i));
 }
 
 void DataProcess_lv2_merge::initialize(){

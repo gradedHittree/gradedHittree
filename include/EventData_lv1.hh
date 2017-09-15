@@ -30,9 +30,9 @@ class EventData_lv1 : public EventData{
             delta_x.clear();
             delta_y.clear();
             delta_z.clear();
-            epi.clear();
-	    
-	    pedesigma.clear();
+            epi.clear();	    
+	    //pedesigma.clear();
+	    ethre.clear();
         };
 
         void set_nsignal(int _nsignal){ nsignal = _nsignal; };
@@ -48,8 +48,8 @@ class EventData_lv1 : public EventData{
         void set_delta_y(double _delta_y){ delta_y.push_back( _delta_y); };
         void set_delta_z(double _delta_z){ delta_z.push_back( _delta_z); };
         void set_epi(double _epi){ epi.push_back( _epi); };
-
-        void set_pedesigma(double _pedesigma){ pedesigma.push_back( _pedesigma); };
+        //void set_pedesigma(double _pedesigma){ pedesigma.push_back( _pedesigma); };
+        void set_ethre(double _ethre){ ethre.push_back( _ethre); };
 
         int get_nsignal(){ return nsignal;};
         int get_detid(int i){ return detid[i];};
@@ -64,8 +64,8 @@ class EventData_lv1 : public EventData{
         double get_delta_y(int i){ return delta_y[i];};
         double get_delta_z(int i){ return delta_z[i];};
         double get_epi(int i){ return epi[i];};
-
-        double get_pedesigma(int i){ return pedesigma[i];};
+        //double get_pedesigma(int i){ return pedesigma[i];};
+        double get_ethre(int i){ return ethre[i];};
 
         void deleteSignal(int i){
             --nsignal;
@@ -81,7 +81,8 @@ class EventData_lv1 : public EventData{
             delta_y.erase(delta_y.begin() + i);
             delta_z.erase(delta_z.begin() + i);
             epi.erase(epi.begin() + i);
-	    pedesigma.erase(pedesigma.begin() + i);
+	    //pedesigma.erase(pedesigma.begin() + i);
+	    ethre.erase(ethre.begin() + i);
         }
 
     private:
@@ -99,8 +100,8 @@ class EventData_lv1 : public EventData{
         std::vector<double> delta_y;
         std::vector<double> delta_z;
         std::vector<double> epi;
-
-        std::vector<double> pedesigma;
+        //std::vector<double> pedesigma;
+        std::vector<double> ethre;
 };
 
 }

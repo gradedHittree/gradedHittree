@@ -43,7 +43,8 @@ ANLStatus WriteHitTree_lv1::mod_his()
   hittree_lv1->Branch("delta_y_lv1", delta_y, "delta_y_lv1[nsignal_lv1]/D");
   hittree_lv1->Branch("delta_z_lv1", delta_z, "delta_z_lv1[nsignal_lv1]/D");
 
-  hittree_lv1->Branch("pedesigma_lv1", pedesigma, "pedesigma_lv1[nsignal_lv1]/D");
+  //hittree_lv1->Branch("pedesigma_lv1", pedesigma, "pedesigma_lv1[nsignal_lv1]/D");
+  hittree_lv1->Branch("ethre_lv1", ethre, "ethre_lv1[nsignal_lv1]/D");
   
   return AS_OK;
 }
@@ -66,7 +67,8 @@ ANLStatus WriteHitTree_lv1::mod_ana()
       delta_y[isignal] = eventData->get_delta_y(isignal);
       delta_z[isignal] = eventData->get_delta_z(isignal);
 
-      pedesigma[isignal] = eventData->get_pedesigma(isignal);
+      //pedesigma[isignal] = eventData->get_pedesigma(isignal);
+      ethre[isignal] = eventData->get_ethre(isignal);
   }
   
   hittree_lv1->Fill();

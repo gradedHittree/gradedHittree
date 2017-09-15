@@ -40,8 +40,7 @@ private:
   double delta_x[MAX_N_SIGNAL];
   double delta_y[MAX_N_SIGNAL];
   double delta_z[MAX_N_SIGNAL];
-  double epi_0V[MAX_N_SIGNAL];
-  double epi_HV[MAX_N_SIGNAL];
+  double epi[MAX_N_SIGNAL];
 };
 
 } /* namespace oistapp */

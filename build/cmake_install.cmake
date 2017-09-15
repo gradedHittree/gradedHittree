@@ -1,4 +1,4 @@
-# Install script for directory: /Users/goroyabu/Soft/new_hittree_soft
+# Install script for directory: /Users/goroyabu/Soft/gradedHittree
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -36,7 +36,7 @@ if("${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMP
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-file(INSTALL DESTINATION "/Users/goroyabu/lib" TYPE SHARED_LIBRARY FILES "/Users/goroyabu/Soft/new_hittree_soft/build/libEventTree2HitTreeGen.dylib")
+file(INSTALL DESTINATION "/Users/goroyabu/lib" TYPE SHARED_LIBRARY FILES "/Users/goroyabu/Soft/gradedHittree/build/libEventTree2HitTreeGen.dylib")
   if(EXISTS "$ENV{DESTDIR}/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib")
     execute_process(COMMAND "/usr/bin/install_name_tool"
@@ -56,7 +56,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/goroyabu/Soft/new_hittree_soft/build/ruby/cmake_install.cmake")
+  include("/Users/goroyabu/Soft/gradedHittree/build/ruby/cmake_install.cmake")
 
 endif()
 
@@ -68,5 +68,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/goroyabu/Soft/new_hittree_soft/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/goroyabu/Soft/gradedHittree/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

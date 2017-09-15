@@ -55,8 +55,7 @@ void DataProcess_lv3_reconstruct::reconstruct(){//you can change this method
                     reconstructed_pos_z = pos_z_HV[jHV];
 		    reconstructed_delta_z = delta_z_HV[jHV];
                 }
-		reconstructed_epi_0V = epi_0V[j0V];
-		reconstructed_epi_HV = epi_HV[jHV];
+		reconstructed_epi = calc_reconstructed_epi(epi_0V[j0V],epi_HV[jHV]);
                 set_reconstructed_signal();
 
                 fill_0V[j0V] = 1;
@@ -143,8 +142,7 @@ void DataProcess_lv3_reconstruct::initialize(){
     reconstructed_delta_x = 0;
     reconstructed_delta_y = 0;
     reconstructed_delta_z = 0;
-    reconstructed_epi_0V = 0;
-    reconstructed_epi_HV = 0;
+    reconstructed_epi = 0;
 }
 
 void DataProcess_lv3_reconstruct::set_reconstructed_signal(){
@@ -159,8 +157,7 @@ void DataProcess_lv3_reconstruct::set_reconstructed_signal(){
     eventData_lv3->set_delta_x(reconstructed_delta_x);
     eventData_lv3->set_delta_y(reconstructed_delta_y);
     eventData_lv3->set_delta_z(reconstructed_delta_z);
-    eventData_lv3->set_epi_0V(reconstructed_epi_0V);
-    eventData_lv3->set_epi_HV(reconstructed_epi_HV);
+    eventData_lv3->set_epi(reconstructed_epi);
 }
 
 void DataProcess_lv3_reconstruct::delete_signal(){

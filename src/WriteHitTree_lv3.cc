@@ -28,8 +28,7 @@ ANLStatus WriteHitTree_lv3::mod_his()
   hittree_lv3->Branch("delta_x_lv3", delta_x, "delta_x_lv3[nhit]/D");
   hittree_lv3->Branch("delta_y_lv3", delta_y, "delta_y_lv3[nhit]/D");
   hittree_lv3->Branch("delta_z_lv3", delta_z, "delta_z_lv3[nhit]/D");
-  hittree_lv3->Branch("epi_0V_lv3", epi_0V, "epi_0V_lv3[nhit]/D");
-  hittree_lv3->Branch("epi_HV_lv3", epi_HV, "epi_HV_lv3[nhit]/D");
+  hittree_lv3->Branch("epi_lv3", epi, "epi_lv3[nhit]/D");
 
   return AS_OK;
 }
@@ -56,8 +55,7 @@ ANLStatus WriteHitTree_lv3::mod_ana()
       delta_x[ihit] = eventData->get_delta_x(ihit);
       delta_y[ihit] = eventData->get_delta_y(ihit);
       delta_z[ihit] = eventData->get_delta_z(ihit);
-      epi_0V[ihit] = eventData->get_epi_0V(ihit);
-      epi_HV[ihit] = eventData->get_epi_HV(ihit);
+      epi[ihit] = eventData->get_epi(ihit);
       
   }
 

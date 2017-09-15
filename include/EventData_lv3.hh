@@ -23,8 +23,7 @@ class EventData_lv3 : public EventData{
             delta_x.clear();
             delta_y.clear();
             delta_z.clear();
-            epi_0V.clear();
-	    epi_HV.clear();
+            epi.clear();
         };
 
         void set_nhit(int _nhit){ nhit = _nhit; };
@@ -36,8 +35,7 @@ class EventData_lv3 : public EventData{
         void set_delta_x(double _delta_x){ delta_x.push_back( _delta_x); };
         void set_delta_y(double _delta_y){ delta_y.push_back( _delta_y); };
         void set_delta_z(double _delta_z){ delta_z.push_back( _delta_z); };
-        void set_epi_0V(double _epi_0V){ epi_0V.push_back( _epi_0V); };
-        void set_epi_HV(double _epi_HV){ epi_HV.push_back( _epi_HV); };
+        void set_epi(double _epi){ epi.push_back( _epi); };
 
         int get_nhit(){ return nhit;};
         int get_detid(int i){ return detid[i];};
@@ -48,8 +46,7 @@ class EventData_lv3 : public EventData{
         double get_delta_x(int i){ return delta_x[i];};
         double get_delta_y(int i){ return delta_y[i];};
         double get_delta_z(int i){ return delta_z[i];};
-        double get_epi_0V(int i){ return epi_0V[i];};
-        double get_epi_HV(int i){ return epi_HV[i];};
+        double get_epi(int i){ return epi[i];};
 
     private:
 
@@ -62,8 +59,7 @@ class EventData_lv3 : public EventData{
         std::vector<double> delta_x;
         std::vector<double> delta_y;
         std::vector<double> delta_z;
-        std::vector<double> epi_0V;
-        std::vector<double> epi_HV;
+        std::vector<double> epi;
 };
 
 }

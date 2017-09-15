@@ -22,7 +22,7 @@ ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o
  ../include/WriteHitTree_lv1.hh
  ../include/WriteHitTree_lv2.hh
  ../include/WriteHitTree_lv3.hh
- /Users/goroyabu/Soft/new_hittree_soft/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx
+ /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx
  /Users/goroyabu/include/anl/ANLException.hh
  /Users/goroyabu/include/anl/ANLMacro.hh
  /Users/goroyabu/include/anl/ANLStatus.hh
@@ -1150,7 +1150,7 @@ ruby/eventTree2HitTreeGenRUBY_wrap.cxx
  ../include/WriteHitTree_lv1.hh
  ../include/WriteHitTree_lv2.hh
  ../include/WriteHitTree_lv3.hh
- /Users/goroyabu/Soft/new_hittree_soft/ruby/eventTree2HitTreeGen.i
+ /Users/goroyabu/Soft/gradedHittree/ruby/eventTree2HitTreeGen.i
  /Users/goroyabu/include/anl/ANLException.hh
  /Users/goroyabu/include/anl/ANLMacro.hh
  /Users/goroyabu/include/anl/ANLManager.hh

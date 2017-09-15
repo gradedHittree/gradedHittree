@@ -60,7 +60,7 @@ private:
   double delta_z[MAX_N_SIGNAL];
   double epi[MAX_N_SIGNAL];
 
-  double pedesigma[MAX_N_SIGNAL];
+  double ethre[MAX_N_SIGNAL];
 };
 
 } /* namespace comptonsoft */

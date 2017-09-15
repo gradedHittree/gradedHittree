@@ -72,10 +72,17 @@ public:
       std::pair<int, int> p_detid_and_detch = map_detid_and_detch[p_asicid_and_asicch];
       return map_delta_z[p_detid_and_detch];
   }
+  /*
   double get_pedesigma(std::pair<int, int> p_asicid_and_asicch) const {
       std::pair<int, int> p_detid_and_detch = map_detid_and_detch[p_asicid_and_asicch];
       return map_pedesigma[p_detid_and_detch];
   }
+  */
+  double get_ethre(std::pair<int, int> p_asicid_and_asicch) const {
+      std::pair<int, int> p_detid_and_detch = map_detid_and_detch[p_asicid_and_asicch];
+      return map_ethre[p_detid_and_detch];
+  }
+  
 
   bool isBlackch(std::pair<int, int> p_asicid_and_asicch) const {
       if(get_remapch(p_asicid_and_asicch) < 0){
@@ -99,23 +106,23 @@ private:
   void load_Map_Databese();
   void load_Profile_Databese();
   void load_Calfunc_Databese();
-  void load_Pedestal_Database();
+  //void load_Pedestal_Database();
 
   int nasic;
 
   std::string map_Filename;
   std::string profile_Filename;
   std::string calfunc_Filename;
-  std::string pedestal_Filename;
+  //std::string pedestal_Filename;
 
   TFile *map_File;
   TFile *profile_File;
   TFile *calfunc_File;
-  TFile *pedestal_File;
+  //TFile *pedestal_File;
 
   TTree *detector_map;
   TTree *detector_profile;
-  TTree *detector_pedestal;
+  //TTree *detector_pedestal;
 
   Int_t asicid;
   Int_t asicch;
@@ -134,7 +141,8 @@ private:
   Double_t delta_z ;
   Int_t badch;
 
-  Double_t pedesigma;
+  //Double_t pedesigma;
+  Double_t ethre;
   
   //asicid_and_asicch -> 
   mutable std::vector<int> vec_asicid;
@@ -157,7 +165,8 @@ private:
 
   mutable std::map<std::pair<int, int>, double> map_badch;
 
-  mutable std::map<std::pair<int, int>, double> map_pedesigma;
+  //mutable std::map<std::pair<int, int>, double> map_pedesigma;
+  mutable std::map<std::pair<int, int>, double> map_ethre;
 
   mutable std::map<std::pair<int, int>, TSpline3*> map_calfunc;
 };

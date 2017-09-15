@@ -73,9 +73,10 @@ ANLStatus DataProcess_lv1::mod_ana()
         eventData_lv1->set_delta_y(delta_y);
         double delta_z = readDetectorDatabase_->get_delta_z(p_asicid_and_asicch);
         eventData_lv1->set_delta_z(delta_z);
-
-	double pedesigma = readDetectorDatabase_->get_pedesigma(p_asicid_and_asicch);
-	eventData_lv1->set_pedesigma(pedesigma);
+	//double pedesigma = readDetectorDatabase_->get_pedesigma(p_asicid_and_asicch);
+	//eventData_lv1->set_pedesigma(pedesigma);
+	double ethre = readDetectorDatabase_->get_ethre(p_asicid_and_asicch);
+	eventData_lv1->set_ethre(ethre);
 	
         double epi = getEPI(p_asicid_and_asicch, adc);
         eventData_lv1->set_epi(epi);

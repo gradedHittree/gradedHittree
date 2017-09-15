@@ -6,5 +6,5 @@ CXX_FLAGS = -O2 -fPIC   -std=c++11
 
 CXX_DEFINES = -DeventTree2HitTreeGen_EXPORTS
 
-CXX_INCLUDES = -I/Users/goroyabu/Soft/new_hittree_soft/include -I/Users/goroyabu/include/anl -I/usr/local/include -I/usr/local/Cellar/root/5.34.36_2/include/root -I/Users/goroyabu/Soft/new_hittree_soft/ruby/../include -I/Users/goroyabu/include/anl/ruby -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0 -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0/x86_64-darwin16 
+CXX_INCLUDES = -I/Users/goroyabu/Soft/gradedHittree/include -I/Users/goroyabu/include/anl -I/usr/local/include -I/usr/local/Cellar/root/5.34.36_2/include/root -I/Users/goroyabu/Soft/gradedHittree/ruby/../include -I/Users/goroyabu/include/anl/ruby -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0 -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0/x86_64-darwin16 
 

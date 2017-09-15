@@ -9,11 +9,11 @@ ReadDetectorDatabase::ReadDetectorDatabase()
   : map_Filename("map.root"),
     profile_Filename("profile.root"),
     calfunc_Filename("calfunc.root"),
-    pedestal_Filename("pedestal.root"),
+    //pedestal_Filename("pedestal.root"),
     map_File(nullptr),
     profile_File(nullptr),
-    calfunc_File(nullptr),
-    pedestal_File(nullptr)
+    calfunc_File(nullptr)
+    //,pedestal_File(nullptr)
 {
 }
 
@@ -22,7 +22,7 @@ ANLStatus ReadDetectorDatabase::mod_startup()
   register_parameter(&map_Filename, "map_file");
   register_parameter(&profile_Filename, "profile_file");
   register_parameter(&calfunc_Filename, "calfunc_file");
-  register_parameter(&pedestal_Filename, "pedestal_file");
+  //register_parameter(&pedestal_Filename, "pedestal_file");
   return AS_OK;
 }
 
@@ -31,7 +31,7 @@ ANLStatus ReadDetectorDatabase::mod_init()
   map_File = new TFile(map_Filename.c_str(), "r");
   profile_File = new TFile(profile_Filename.c_str(), "r");
   calfunc_File = new TFile(calfunc_Filename.c_str(), "r");
-  pedestal_File = new TFile(pedestal_Filename.c_str(), "r");
+  //pedestal_File = new TFile(pedestal_Filename.c_str(), "r");
 
   if( !map_File ){
     std::cout << "ReadDetectorDatabase: cannot read " << map_Filename << std::endl;
@@ -48,7 +48,7 @@ ANLStatus ReadDetectorDatabase::mod_init()
 
   detector_map = (TTree*)map_File->Get("detector_map");
   detector_profile = (TTree*)profile_File->Get("detector_profile");
-  if( pedestal_File )detector_pedestal = (TTree*)pedestal_File->Get("detector_pedestal");
+  //if( pedestal_File )detector_pedestal = (TTree*)pedestal_File->Get("detector_pedestal");
 
   if( !detector_map){
     std::cout << "ReadDetectorDatabase: cannot find TTree::detector_map" << std::endl;
@@ -62,7 +62,7 @@ ANLStatus ReadDetectorDatabase::mod_init()
   load_Map_Databese();
   load_Profile_Databese();
   load_Calfunc_Databese();
-  if( detector_pedestal )load_Pedestal_Database();
+  //if( detector_pedestal )load_Pedestal_Database();
 
   return AS_OK;
 }
@@ -114,7 +114,8 @@ void ReadDetectorDatabase::load_Profile_Databese(){
     detector_profile->SetBranchAddress("delta_z", &delta_z);
     detector_profile->SetBranchAddress("badch", &badch);
 
-    detector_profile->SetBranchAddress("pedesigma",&pedesigma);
+    //detector_profile->SetBranchAddress("pedesigma",&pedesigma);
+    detector_profile->SetBranchAddress("ethre",&ethre);
 
     Long64_t nch = detector_profile->GetEntries();
 
@@ -136,7 +137,8 @@ void ReadDetectorDatabase::load_Profile_Databese(){
 
         map_badch[p_detid_and_detch] = badch;
 
-	map_pedesigma[p_detid_and_detch] = pedesigma;
+	//map_pedesigma[p_detid_and_detch] = pedesigma;
+	map_ethre[p_detid_and_detch] = ethre;
     }
 }
 
@@ -162,7 +164,7 @@ void ReadDetectorDatabase::load_Calfunc_Databese(){
         map_calfunc[*itr] = calfunc;  
     }
 }
-
+  /*
 void ReadDetectorDatabase::load_Pedestal_Database(){
     detector_pedestal->SetBranchAddress("asicid",&asicid);
     detector_pedestal->SetBranchAddress("asicch",&asicch);
@@ -178,5 +180,6 @@ void ReadDetectorDatabase::load_Pedestal_Database(){
         map_pedesigma[p_detid_and_detch] = pedesigma;
     }
 }
+  */
   
 } /* namespace hittree_gen*/

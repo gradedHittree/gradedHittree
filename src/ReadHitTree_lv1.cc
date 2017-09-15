@@ -44,7 +44,8 @@ ANLStatus ReadHitTree_lv1::mod_init()
   m_Tree->SetBranchAddress("delta_z_lv1", delta_z);
   m_Tree->SetBranchAddress("epi_lv1", epi);
 
-  m_Tree->SetBranchAddress("pedesigma_lv1", pedesigma);
+  //m_Tree->SetBranchAddress("pedesigma_lv1", pedesigma);
+  m_Tree->SetBranchAddress("ethre_lv1", ethre);
   
   m_NEvents = m_Tree->GetEntries();
   std::cout << "Total Event : " << m_NEvents << std::endl;
@@ -79,7 +80,8 @@ ANLStatus ReadHitTree_lv1::mod_ana()
     eventData->set_delta_z(delta_z[isignal]);
     eventData->set_epi(epi[isignal]);
 
-    eventData->set_pedesigma(pedesigma[isignal]);
+    //eventData->set_pedesigma(pedesigma[isignal]);
+    eventData->set_ethre(ethre[isignal]);
   }
   
   iEvent++;

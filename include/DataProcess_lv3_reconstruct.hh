@@ -25,7 +25,7 @@ private:
   void set_reconstructed_signal();
   void delete_signal();
   void fill_signal_into_vector(int i);
-
+  
   std::vector<int> filled_signal_index;
 
   int detid;
@@ -60,8 +60,7 @@ private:
   double reconstructed_delta_x;
   double reconstructed_delta_y;
   double reconstructed_delta_z;
-  double reconstructed_epi_0V;
-  double reconstructed_epi_HV;
+  double reconstructed_epi;
   
 };
 
