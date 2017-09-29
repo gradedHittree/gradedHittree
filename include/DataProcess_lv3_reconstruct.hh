@@ -18,10 +18,20 @@ public:
 private:
   void initialize();
   void doProcessing();
+
   void reconstruct();
+  void reconstruct_1_1hit();
+  void reconstruct_2_1hit();
+  void reconstruct_1_2hit();
+  void reconstruct_2_2hit();
+  void reconstruct_multihit();
   bool isConsistent(const double e0V, const double eHV);
   static bool sort_epi_descend(const std::pair<int, double> &left,const std::pair<int, double> &right);
   double calc_reconstructed_epi(const double e0V, const double eHV);
+  void delete_one_signal_0V(int i);
+  void delete_one_signal_HV(int i);
+  void set_signal(double pos_x, double delta_x,double pos_y, double delta_y, double pos_z, double delta_z, double epi);
+  
   void set_reconstructed_signal();
   void delete_signal();
   void fill_signal_into_vector(int i);

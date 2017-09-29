@@ -32,43 +32,205 @@ void DataProcess_lv3_reconstruct::doProcessing(){
 }
 
 void DataProcess_lv3_reconstruct::reconstruct(){//you can change this method
+    if(epi_0V.size()==1 && epi_HV.size()==1){
+      
+        reconstruct_1_1hit();
+	
+    }else if(epi_0V.size()==1 && epi_HV.size()==2){
+      
+        reconstruct_1_2hit();
+	
+    }else if(epi_0V.size()==2 && epi_HV.size()==1){
+      
+        reconstruct_2_1hit();
+	
+    }else if(epi_0V.size()==2 && epi_HV.size()==2){
+      
+        reconstruct_2_2hit();
+	
+    }else{
+      
+        reconstruct_multihit();
+	
+    }
+}//
+void DataProcess_lv3_reconstruct::reconstruct_1_1hit(){
+    if(isConsistent(epi_0V[0],epi_HV[0])){
+      
+        double epi = calc_reconstructed_epi(epi_0V[0],epi_HV[0]);
+	
+        if(delta_x_0V[0] > 0){
+	  
+            set_signal(pos_x_0V[0],delta_x_0V[0],pos_y_HV[0],delta_y_HV[0],pos_z_HV[0],delta_z_HV[0],epi);
+	    
+        }else{
+	  
+	    set_signal(pos_x_HV[0],delta_x_HV[0],pos_y_0V[0],delta_y_0V[0],pos_z_HV[0],delta_z_HV[0],epi);
+	    
+        }
+    }
+}
+void DataProcess_lv3_reconstruct::reconstruct_2_1hit(){
+    double epi_0V_total = epi_0V[0]+epi_0V[1];
+    double epi_HV_total = epi_HV[0];
+  
+    if(delta_x_0V[0] > 0){
+      
+        if(isConsistent(epi_0V_total,epi_HV_total)){
+	  
+            set_signal(pos_x_0V[0],delta_x_0V[0],pos_y_HV[0],delta_y_HV[0],pos_z_HV[0],delta_z_HV[0],epi_0V[0]);
+            set_signal(pos_x_0V[1],delta_x_0V[1],pos_y_HV[0],delta_y_HV[0],pos_z_HV[0],delta_z_HV[0],epi_0V[1]);
+	    
+        }
+    }else{
+      
+        if(isConsistent(epi_0V_total,epi_HV_total)){
+	  
+            set_signal(pos_x_HV[0],delta_x_HV[0],pos_y_0V[0],delta_y_0V[0],pos_z_HV[0],delta_z_HV[0],epi_0V[0]);
+            set_signal(pos_x_HV[1],delta_x_HV[1],pos_y_0V[0],delta_y_0V[0],pos_z_HV[0],delta_z_HV[0],epi_0V[1]);
+	    
+        }
+    }
+}
+void DataProcess_lv3_reconstruct::reconstruct_1_2hit(){
+    double epi_0V_total = epi_0V[0];
+    double epi_HV_total = epi_HV[0]+epi_HV[1];
+  
+    if(delta_x_0V[0] > 0){
+      
+        if(isConsistent(epi_0V_total,epi_HV_total)){
+	  
+            set_signal(pos_x_0V[0],delta_x_0V[0],pos_y_HV[0],delta_y_HV[0],pos_z_HV[0],delta_z_HV[0],epi_HV[0]);
+            set_signal(pos_x_0V[0],delta_x_0V[0],pos_y_HV[1],delta_y_HV[1],pos_z_HV[0],delta_z_HV[0],epi_HV[1]);
+	    
+        }
+    }else{
+      
+        if(isConsistent(epi_0V_total,epi_HV_total)){
+	  
+            set_signal(pos_x_HV[0],delta_x_HV[0],pos_y_0V[0],delta_y_0V[0],pos_z_HV[0],delta_z_HV[0],epi_HV[0]);
+            set_signal(pos_x_HV[0],delta_x_HV[0],pos_y_0V[1],delta_y_0V[1],pos_z_HV[0],delta_z_HV[0],epi_HV[1]);
+	    
+        }
+    }
+}
+void DataProcess_lv3_reconstruct::reconstruct_2_2hit(){
+    double epi_0V_total = epi_0V[0]+epi_0V[1];
+    double epi_HV_total = epi_HV[0]+epi_HV[1];
+  
+    if(delta_x_0V[0] > 0){
+        if(isConsistent(epi_0V[0],epi_HV[0])==true && isConsistent(epi_0V[1],epi_HV[1])==true && isConsistent(epi_0V[0],epi_HV[1])==false && isConsistent(epi_0V[1],epi_HV[0])==false){
+
+	    double epi = calc_reconstructed_epi(epi_0V[0],epi_HV[0]);
+	    set_signal(pos_x_0V[0],delta_x_0V[0],pos_y_HV[0],delta_y_HV[0],pos_z_HV[0],delta_z_HV[0],epi);
+
+	    epi = calc_reconstructed_epi(epi_0V[1],epi_HV[1]);
+	    set_signal(pos_x_0V[1],delta_x_0V[1],pos_y_HV[1],delta_y_HV[1],pos_z_HV[1],delta_z_HV[1],epi);            
+
+        }else if(isConsistent(epi_0V[0],epi_HV[0])==false && isConsistent(epi_0V[1],epi_HV[1])==false && isConsistent(epi_0V[0],epi_HV[1])==true && isConsistent(epi_0V[1],epi_HV[0])==true){
+
+	    double epi = calc_reconstructed_epi(epi_0V[0],epi_HV[1]);
+	    set_signal(pos_x_0V[0],delta_x_0V[0],pos_y_HV[1],delta_y_HV[1],pos_z_HV[1],delta_z_HV[1],epi);
+
+	    epi = calc_reconstructed_epi(epi_0V[1],epi_HV[0]);
+	    set_signal(pos_x_0V[1],delta_x_0V[1],pos_y_HV[0],delta_y_HV[0],pos_z_HV[0],delta_z_HV[0],epi);            
+
+        }else if(isConsistent(epi_0V[0],epi_HV_total)==true && isConsistent(epi_0V[1],epi_HV_total)==false){
+	  
+	    delete_one_signal_0V(1);
+	    reconstruct_1_2hit();
+	    
+        }else if(isConsistent(epi_0V[0],epi_HV_total)==false && isConsistent(epi_0V[1],epi_HV_total)==true){
+	  
+	    delete_one_signal_0V(0);
+	    reconstruct_1_2hit();
+	    
+        }else if(isConsistent(epi_0V_total,epi_HV[0])==true && isConsistent(epi_0V_total,epi_HV[1])==false){
+	  
+	    delete_one_signal_HV(1);
+	    reconstruct_2_1hit();
+	    
+        }else if(isConsistent(epi_0V_total,epi_HV[0])==false && isConsistent(epi_0V_total,epi_HV[1])==true){
+	  
+	    delete_one_signal_HV(0);
+	    reconstruct_2_1hit();
+	    
+        }
+    }else{
+        if(isConsistent(epi_0V[0],epi_HV[0])==true && isConsistent(epi_0V[1],epi_HV[1])==true && isConsistent(epi_0V[0],epi_HV[1])==false && isConsistent(epi_0V[1],epi_HV[0])==false){
+
+	    double epi = calc_reconstructed_epi(epi_0V[0],epi_HV[0]);
+	    set_signal(pos_x_HV[0],delta_x_HV[0],pos_y_0V[0],delta_y_0V[0],pos_z_HV[0],delta_z_HV[0],epi);
+
+	    epi = calc_reconstructed_epi(epi_0V[1],epi_HV[1]);
+	    set_signal(pos_x_HV[1],delta_x_HV[1],pos_y_0V[1],delta_y_0V[1],pos_z_HV[1],delta_z_HV[1],epi);            
+
+        }else if(isConsistent(epi_0V[0],epi_HV[0])==false && isConsistent(epi_0V[1],epi_HV[1])==false && isConsistent(epi_0V[0],epi_HV[1])==true && isConsistent(epi_0V[1],epi_HV[0])==true){
+	  
+	    double epi = calc_reconstructed_epi(epi_0V[0],epi_HV[1]);
+	    set_signal(pos_x_HV[1],delta_x_HV[1],pos_y_0V[0],delta_y_0V[0],pos_z_HV[1],delta_z_HV[1],epi);
+
+	    epi = calc_reconstructed_epi(epi_0V[1],epi_HV[0]);
+	    set_signal(pos_x_HV[0],delta_x_HV[0],pos_y_0V[1],delta_y_0V[1],pos_z_HV[0],delta_z_HV[0],epi);            
+
+        }else if(isConsistent(epi_0V[0],epi_HV_total)==true && isConsistent(epi_0V[1],epi_HV_total)==false){
+	  
+	    delete_one_signal_0V(1);
+	    reconstruct_1_2hit();
+	    
+        }else if(isConsistent(epi_0V[0],epi_HV_total)==false && isConsistent(epi_0V[1],epi_HV_total)==true){
+	  
+	    delete_one_signal_0V(0);
+	    reconstruct_1_2hit();
+	    
+        }else if(isConsistent(epi_0V_total,epi_HV[0])==true && isConsistent(epi_0V_total,epi_HV[1])==false){
+	  
+	    delete_one_signal_HV(1);
+	    reconstruct_2_1hit();
+	    
+        }else if(isConsistent(epi_0V_total,epi_HV[0])==false && isConsistent(epi_0V_total,epi_HV[1])==true){
+	  
+	    delete_one_signal_HV(0);
+	    reconstruct_2_1hit();
+	    
+        }
+    }
+}
+void DataProcess_lv3_reconstruct::reconstruct_multihit(){
     sort(order_epi_0V.begin(),order_epi_0V.end(),DataProcess_lv3_reconstruct::sort_epi_descend);
     sort(order_epi_HV.begin(),order_epi_HV.end(),DataProcess_lv3_reconstruct::sort_epi_descend);
     
     for(int i0V=0;i0V<epi_0V.size();i0V++){
+      
       	int j0V = order_epi_0V[i0V].first;
+	
         for(int iHV=0;iHV<epi_HV.size();iHV++){
+	  
     	    int jHV = order_epi_HV[iHV].first;
+	    
     	    if(isConsistent(epi_0V[j0V],epi_HV[jHV]) && fill_0V[j0V]==0 && fill_HV[jHV]==0){
+	      
+	        double epi = calc_reconstructed_epi(epi_0V[j0V],epi_HV[jHV]);
+	      
 	        if(delta_x_0V[j0V] > 0){
-                    reconstructed_pos_x = pos_x_0V[j0V];
-                    reconstructed_delta_x = delta_x_0V[j0V];
-                    reconstructed_pos_y = pos_y_HV[jHV];
-                    reconstructed_delta_y = delta_y_HV[jHV];
-                    reconstructed_pos_z = pos_z_HV[jHV];
-		    reconstructed_delta_z = delta_z_HV[jHV];
-                }else{
-                    reconstructed_pos_x = pos_x_HV[jHV];
-                    reconstructed_delta_x = delta_x_HV[jHV];
-                    reconstructed_pos_y = pos_y_0V[j0V];
-                    reconstructed_delta_y = delta_y_0V[j0V];
-                    reconstructed_pos_z = pos_z_HV[jHV];
-		    reconstructed_delta_z = delta_z_HV[jHV];
+		  
+  		    set_signal(pos_x_0V[j0V],delta_x_0V[j0V],pos_y_HV[jHV],delta_y_HV[jHV],pos_z_HV[jHV],delta_z_HV[jHV],epi);
+		    
+	        }else{
+		    set_signal(pos_x_HV[jHV],delta_x_HV[jHV],pos_y_0V[j0V],delta_y_0V[j0V],pos_z_HV[jHV],delta_z_HV[jHV],epi);
+		    
                 }
-		reconstructed_epi = calc_reconstructed_epi(epi_0V[j0V],epi_HV[jHV]);
-                set_reconstructed_signal();
 
                 fill_0V[j0V] = 1;
 		fill_HV[jHV] = 1;	
             }
         }//for iHV
     }//fpr i0V
-}//
-
+}
+  
 bool DataProcess_lv3_reconstruct::isConsistent(const double e0V,const double eHV){
     bool isconsis = false;
     if(fabs(e0V-eHV)<=3.0 || fabs(e0V-eHV)<=eHV*0.15)isconsis = true;
-  
     return isconsis;
 }
 
@@ -80,6 +242,36 @@ double DataProcess_lv3_reconstruct::calc_reconstructed_epi(const double e0V, con
     double epi_new = eHV;
     return epi_new;
 }//
+void DataProcess_lv3_reconstruct::delete_one_signal_0V(int i){
+    pos_x_0V.erase(pos_x_0V.begin()+i);
+    pos_y_0V.erase(pos_y_0V.begin()+i);
+    pos_z_0V.erase(pos_z_0V.begin()+i);
+    delta_x_0V.erase(delta_x_0V.begin()+i);
+    delta_y_0V.erase(delta_y_0V.begin()+i);
+    delta_z_0V.erase(delta_z_0V.begin()+i);
+    epi_0V.erase(epi_0V.begin()+i);
+    //order_epi_0V.erase(order_epi_0V.begin()+i);
+}
+void DataProcess_lv3_reconstruct::delete_one_signal_HV(int i){
+    pos_x_HV.erase(pos_x_HV.begin()+i);
+    pos_y_HV.erase(pos_y_HV.begin()+i);
+    pos_z_HV.erase(pos_z_HV.begin()+i);
+    delta_x_HV.erase(delta_x_HV.begin()+i);
+    delta_y_HV.erase(delta_y_HV.begin()+i);
+    delta_z_HV.erase(delta_z_HV.begin()+i);
+    epi_HV.erase(epi_HV.begin()+i);
+    //order_epi_HV.erase(order_epi_HV.begin()+i);
+}
+void DataProcess_lv3_reconstruct::set_signal(double pos_x, double delta_x,double pos_y, double delta_y, double pos_z, double delta_z, double epi){
+    reconstructed_pos_x = pos_x;
+    reconstructed_delta_x = delta_x;
+    reconstructed_pos_y = pos_y;
+    reconstructed_delta_y = delta_y;
+    reconstructed_pos_z = pos_z;
+    reconstructed_delta_z = delta_z;
+    reconstructed_epi = epi;
+    set_reconstructed_signal();
+}
   
 void DataProcess_lv3_reconstruct::fill_signal_into_vector(int i){
     filled_signal_index.push_back(i);
