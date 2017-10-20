@@ -32,28 +32,37 @@ void DataProcess_lv2_merge::doProcessing(){
 
     extract_signal_over_threshold();
 
-    while(eventData_lv1->get_nsignal() != 0){
+    while(eventData_lv1->get_nsignal() > 0){
         initialize();
 
         nsignal = eventData_lv1->get_nsignal();
 
         for(int isignal = 0; isignal < nsignal; ++isignal){
-            if(isignal == 0){
-                fill_signal_into_vector(isignal);
+
+	    if(isignal == 0){
+
+	      fill_signal_into_vector(isignal);
+
             }else if(isAdjacent(isignal)){
-                fill_signal_into_vector(isignal);
-            }
+
+	      fill_signal_into_vector(isignal);
+
+	    }
+	    //std::cout << isignal << "/" << nsignal << std::endl;
         }
         merge();
         set_merged_signal();
         delete_signal();
+
     }
+    //std::cout << "end of entry" << std::endl;
 }
 
 // Users should write this function !!! 
 void DataProcess_lv2_merge::merge(){
     n_merged_signal = (int)detch.size();
-
+    //n_merged_signal = (int)hist_distx_epi->GetEntries();
+    //std::cout << hist_distx_epi->GetEntries() << std::endl;
     merged_epi = (double)hist_distx_epi->Integral();
     merged_pos_x = (double)hist_distx_epi->GetMean();
     merged_pos_y = (double)hist_disty_epi->GetMean();
@@ -114,12 +123,17 @@ void DataProcess_lv2_merge::fill_signal_into_vector(int i){
       hist_disty_epi->SetBins(1000,temp_pos_y-5.-0.005,temp_pos_y+5.-0.005);
       hist_distz_epi->SetBins(1000,temp_pos_z-5.-0.005,temp_pos_z+5.-0.005);
     }
-    int binx = hist_distx_epi->FindBin(temp_pos_x);
-    int biny = hist_disty_epi->FindBin(temp_pos_y);
-    int binz = hist_distz_epi->FindBin(temp_pos_z);
-    if(hist_distx_epi->GetBinContent(binx)==0)hist_distx_epi->Fill(temp_pos_x,eventData_lv1->get_epi(i));
-    if(hist_disty_epi->GetBinContent(biny)==0)hist_disty_epi->Fill(temp_pos_y,eventData_lv1->get_epi(i));
-    if(hist_distz_epi->GetBinContent(binz)==0)hist_distz_epi->Fill(temp_pos_z,eventData_lv1->get_epi(i));
+    //int binx = hist_distx_epi->FindBin(temp_pos_x);
+    //int biny = hist_disty_epi->FindBin(temp_pos_y);
+    //int binz = hist_distz_epi->FindBin(temp_pos_z);
+    hist_distx_epi->Fill(temp_pos_x,eventData_lv1->get_epi(i));
+    hist_disty_epi->Fill(temp_pos_y,eventData_lv1->get_epi(i));
+    hist_distz_epi->Fill(temp_pos_z,eventData_lv1->get_epi(i));
+
+    detid =  eventData_lv1->get_detid(i);
+    remapch = eventData_lv1->get_remapch(i);
+    detector_material = eventData_lv1->get_detector_material(i);
+    detector_HV = eventData_lv1->get_detector_HV(i);
 }
 
 void DataProcess_lv2_merge::initialize(){
@@ -170,6 +184,9 @@ void DataProcess_lv2_merge::set_merged_signal(){
     eventData_lv2->set_delta_y(merged_delta_y);
     eventData_lv2->set_delta_z(merged_delta_z);
     eventData_lv2->set_epi(merged_epi);
+
+    //if(n_merged_signal>0)std::cout << "@DataProcess_lv2_merge : " << n_merged_signal << std::endl;
+    //if(n_merged_signal>0)std::cout << "@DataProcess_lv2_merge : " << eventData_lv2->get_n_merged_signal(nsignal_lv2-1) << std::endl;
 }
 
 void DataProcess_lv2_merge::delete_signal(){

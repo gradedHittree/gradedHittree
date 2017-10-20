@@ -55,6 +55,8 @@ ANLStatus WriteHitTree_lv2::mod_ana()
       detector_material[isignal] = eventData->get_detector_material(isignal);
       detector_HV[isignal] = eventData->get_detector_HV(isignal);
       n_merged_signal[isignal] = eventData->get_n_merged_signal(isignal);
+      //if(n_merged_signal[isignal]>0)std::cout << "@WriteHitTree_lv2 : " << n_merged_signal[isignal] << std::endl;
+      //if(n_merged_signal[isignal]>1)std::cout << "@WriteHitTree_lv2 : " << eventData->get_n_merged_signal(isignal) << std::endl; 
       pos_x[isignal] = eventData->get_pos_x(isignal);
       pos_y[isignal] = eventData->get_pos_y(isignal);
       pos_z[isignal] = eventData->get_pos_z(isignal);

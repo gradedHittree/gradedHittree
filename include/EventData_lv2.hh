@@ -19,6 +19,7 @@ class EventData_lv2 : public EventData{
             detid.clear();
             detector_material.clear();
             detector_HV.clear();
+	    n_merged_signal.clear();
             pos_x.clear();
             pos_y.clear();
             pos_z.clear();

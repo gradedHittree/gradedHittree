@@ -230,7 +230,26 @@ void DataProcess_lv3_reconstruct::reconstruct_multihit(){
   
 bool DataProcess_lv3_reconstruct::isConsistent(const double e0V,const double eHV){
     bool isconsis = false;
-    if(fabs(e0V-eHV)<=3.0 || fabs(e0V-eHV)<=eHV*0.15)isconsis = true;
+    double deltae = fabs(e0V-eHV);
+    bool isin15percent = false;
+    double erecon = (double)calc_reconstructed_epi(e0V,eHV);
+    if(deltae<=erecon*0.15)isin15percent = true;
+    
+    bool isin3sigma = false;
+    double sigma = 1.0;//keV
+
+    /*
+    //if muon exp
+    double sigma0V = 1.9*0.001*e0V + 0.639;
+    double sigmaHV = 1.15*0.001*e + 0.734;
+    sigma = sigma0V*sigmaHV/sqrt(sigma0V*sigma0V+sigmaHV*sigmaHV);
+    if(isin3sigma && isin15percent)isconsis = true;
+    //
+    */
+
+    if(deltae<=sigma*3)isin3sigma = true;
+    if(isin3sigma || isin15percent)isconsis = true;
+
     return isconsis;
 }
 
@@ -240,6 +259,15 @@ bool DataProcess_lv3_reconstruct::sort_epi_descend(const std::pair<int, double> 
 
 double DataProcess_lv3_reconstruct::calc_reconstructed_epi(const double e0V, const double eHV){//you can change this method
     double epi_new = eHV;
+
+    /*
+    //if muon exp
+    double sigma0V = 1.9*0.001*e0V + 0.639;
+    double sigmaHV = 1.15*0.001*e + 0.734;
+    epi_new = (e0V*sigma0V*sigma0V+eHV*sigmaHV*sigmaHV)/(sigma0V*sigma0V+sigmaHV*sigmaHV);
+    //
+    */
+    
     return epi_new;
 }//
 void DataProcess_lv3_reconstruct::delete_one_signal_0V(int i){
