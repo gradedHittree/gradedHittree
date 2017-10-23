@@ -1,2 +1,0 @@
-/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib
-/Users/goroyabu/lib/ruby/eventTree2HitTreeGen.bundle
