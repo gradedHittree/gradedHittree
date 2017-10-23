@@ -34,10 +34,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/local/Cellar/cmake/3.8.2/bin/cmake
+CMAKE_COMMAND = /usr/local/Cellar/cmake/3.8.1/bin/cmake
 
 # The command to remove a file.
-RM = /usr/local/Cellar/cmake/3.8.2/bin/cmake -E remove -f
+RM = /usr/local/Cellar/cmake/3.8.1/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -60,21 +60,21 @@ include ruby/CMakeFiles/eventTree2HitTreeGen.dir/flags.make
 ruby/eventTree2HitTreeGenRUBY_wrap.cxx: ../ruby/eventTree2HitTreeGen.i
 ruby/eventTree2HitTreeGenRUBY_wrap.cxx: ../ruby/eventTree2HitTreeGen.i
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/Users/goroyabu/Soft/gradedHittree/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Swig source"
-	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /usr/local/Cellar/cmake/3.8.2/bin/cmake -E make_directory /Users/goroyabu/Soft/gradedHittree/build/ruby
-	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /usr/local/bin/swig -ruby -outdir /Users/goroyabu/Soft/gradedHittree/build/ruby -c++ -I/Users/goroyabu/Soft/gradedHittree/include -I/Users/goroyabu/include/anl -I/usr/local/include -I/usr/local/Cellar/root/5.34.36_2/include/root -I/Users/goroyabu/Soft/gradedHittree/ruby/../include -I/Users/goroyabu/include/anl/ruby -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0 -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0/x86_64-darwin16 -o /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx /Users/goroyabu/Soft/gradedHittree/ruby/eventTree2HitTreeGen.i
+	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /usr/local/Cellar/cmake/3.8.1/bin/cmake -E make_directory /Users/goroyabu/Soft/gradedHittree/build/ruby
+	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /usr/local/bin/swig -ruby -outdir /Users/goroyabu/Soft/gradedHittree/build/ruby -c++ -I/Users/goroyabu/Soft/gradedHittree/include -I/Users/goroyabu/include/anl -I/usr/local/include -I/usr/local/Cellar/root/5.34.34_1/include/root -I/Users/goroyabu/Soft/gradedHittree/ruby/../include -I/Users/goroyabu/include/anl/ruby -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0 -I/usr/local/Cellar/ruby/2.4.1_1/include/ruby-2.4.0/x86_64-darwin15 -o /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx /Users/goroyabu/Soft/gradedHittree/ruby/eventTree2HitTreeGen.i
 
 ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o: ruby/CMakeFiles/eventTree2HitTreeGen.dir/flags.make
 ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o: ruby/eventTree2HitTreeGenRUBY_wrap.cxx
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/goroyabu/Soft/gradedHittree/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o"
-	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /Library/Developer/CommandLineTools/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o -c /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx
+	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o -c /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx
 
 ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.i"
-	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx > CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.i
+	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx > CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.i
 
 ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.s"
-	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /Library/Developer/CommandLineTools/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx -o CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.s
+	cd /Users/goroyabu/Soft/gradedHittree/build/ruby && /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/goroyabu/Soft/gradedHittree/build/ruby/eventTree2HitTreeGenRUBY_wrap.cxx -o CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.s
 
 ruby/CMakeFiles/eventTree2HitTreeGen.dir/eventTree2HitTreeGenRUBY_wrap.cxx.o.requires:
 

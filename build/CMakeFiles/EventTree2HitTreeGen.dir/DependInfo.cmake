@@ -26,7 +26,7 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../include"
   "/Users/goroyabu/include/anl"
   "/usr/local/include"
-  "/usr/local/Cellar/root/5.34.36_2/include/root"
+  "/usr/local/Cellar/root/5.34.34_1/include/root"
   )
 
 # Targets to which this target links.

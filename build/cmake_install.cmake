@@ -46,10 +46,10 @@ file(INSTALL DESTINATION "/Users/goroyabu/lib" TYPE SHARED_LIBRARY FILES "/Users
       -delete_rpath "/Users/goroyabu/lib"
       "$ENV{DESTDIR}/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib")
     execute_process(COMMAND /usr/bin/install_name_tool
-      -delete_rpath "/usr/local/Cellar/root/5.34.36_2/lib/root"
+      -delete_rpath "/usr/local/Cellar/root/5.34.34_1/lib/root"
       "$ENV{DESTDIR}/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/Library/Developer/CommandLineTools/usr/bin/strip" "$ENV{DESTDIR}/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib")
+      execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" "$ENV{DESTDIR}/Users/goroyabu/lib/libEventTree2HitTreeGen.dylib")
     endif()
   endif()
 endif()
