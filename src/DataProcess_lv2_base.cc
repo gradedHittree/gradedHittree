@@ -10,14 +10,10 @@ eventDataBuffer_(nullptr)
 {
 }
 
-ANLStatus DataProcess_lv2_base::mod_startup()
-{
-  return AS_OK;
-}
-
 ANLStatus DataProcess_lv2_base::mod_init()
 {
   GetANLModule("EventDataBuffer", &eventDataBuffer_);
+  eventData_lv1 = eventDataBuffer_->getEventData_lv1();
   eventData_lv2 = eventDataBuffer_->getEventData_lv2();
 
   return AS_OK;
@@ -25,7 +21,6 @@ ANLStatus DataProcess_lv2_base::mod_init()
 
 ANLStatus DataProcess_lv2_base::mod_ana()
 {
-  eventData_lv1 = eventDataBuffer_->getEventData_lv1();
   eventData_lv2->ResetData();
 
   doProcessing();

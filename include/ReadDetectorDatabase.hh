@@ -18,7 +18,7 @@ namespace hittree_gen{
 
 class ReadDetectorDatabase: public anl::BasicModule
 {
-  DEFINE_ANL_MODULE(ReadDetectorDatabase, 1.0);
+  DEFINE_ANL_MODULE(ReadDetectorDatabase, 1.1);
 public:
   ReadDetectorDatabase();
   ~ReadDetectorDatabase() = default;
@@ -84,7 +84,7 @@ public:
   }
   
 
-  bool isBlackch(std::pair<int, int> p_asicid_and_asicch) const {
+  bool isBlankch(std::pair<int, int> p_asicid_and_asicch) const {
       if(get_remapch(p_asicid_and_asicch) < 0){
         return true;
       }

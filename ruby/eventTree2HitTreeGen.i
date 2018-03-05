@@ -10,13 +10,9 @@
 #include "DataProcess_lv3_base.hh"
 #include "DataProcess_lv3_reconstruct.hh"
 #include "ReadDetectorDatabase.hh"
-#include "ReadEventTree.hh"
-#include "ReadHitTree_lv1.hh"
-#include "ReadHitTree_lv2.hh"
+#include "ReadInputTree.hh"
 #include "SaveData.hh"
-#include "WriteHitTree_lv1.hh"
-#include "WriteHitTree_lv2.hh"
-#include "WriteHitTree_lv3.hh"
+#include "WriteTree.hh"
 
 %}
 
@@ -77,25 +73,11 @@ public:
     ~ReadDetectorDatabase();
 };
 
-class ReadEventTree : public anl::BasicModule
+class ReadInputTree : public anl::BasicModule
 {
 public:
-    ReadEventTree();
-    ~ReadEventTree();
-};
-
-class ReadHitTree_lv1 : public anl::BasicModule
-{
-public:
-    ReadHitTree_lv1();
-    ~ReadHitTree_lv1();
-};
-
-class ReadHitTree_lv2 : public anl::BasicModule
-{
-public:
-    ReadHitTree_lv2();
-    ~ReadHitTree_lv2();
+    ReadInputTree();
+    ~ReadInputTree();
 };
 
 class SaveData : public anl::BasicModule
@@ -105,25 +87,11 @@ public:
     ~SaveData();
 };
 
-class WriteHitTree_lv1 : public anl::BasicModule
+class WriteTree : public anl::BasicModule
 {
 public:
-    WriteHitTree_lv1();
-    ~WriteHitTree_lv1();
-};
-
-class WriteHitTree_lv2 : public anl::BasicModule
-{
-public:
-    WriteHitTree_lv2();
-    ~WriteHitTree_lv2();
-};
-
-class WriteHitTree_lv3 : public anl::BasicModule
-{
-public:
-    WriteHitTree_lv3();
-    ~WriteHitTree_lv3();
+    WriteTree();
+    ~WriteTree();
 };
 
 }

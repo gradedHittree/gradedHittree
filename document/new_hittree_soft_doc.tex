@@ -3,7 +3,8 @@
 \def\vector#1{\mbox{\boldmath $#1$}} 
 \setlength{\columnsep}{3zw}
 \setlength{\columnseprule}{0.4pt}
-\title{new hittree soft Docment} 
+\title{gradedHittree soft Docment \\
+Version 2.0} 
 \author{Hiroki Yoneda} 
 \date{\today}
 %%%%%%    TEXT START    %%%%%% 
@@ -22,7 +23,7 @@ ASICID, ASICCHとDETID, DETCHとの対応付をするデータである。
 "detector\_map"というTTree形式で与えられる。
 以下のようなBranchを持っている。
 \begin{table}[htb]
-  \begin{tabular}{|c|c|c|} \hline
+  \begin{tabular}{|c|c|p{12cm}|} \hline
   Branch名 & 型 & 説明 \\ \hline
   asicid & Int\_t & \\
   asicch & Int\_t & 使用していないchであっても記述する必要あり\\
@@ -37,7 +38,7 @@ ASICID, ASICCHとDETID, DETCHとの対応付をするデータである。
 検出器は、xy面に平行であり、各ストリップは、x軸、または、y軸に平行であることを前提としている。
 検出器が3次元的に複雑に配置される場合は、hittree\_lv3から変換する必要あり。
 \begin{table}[htb]
-  \begin{tabular}{|c|c|c|} \hline
+  \begin{tabular}{|c|c|p{10cm}|} \hline
   Branch名 & 型 & 説明 \\ \hline
   detid & Int\_t  & 検出器のID。Siを0-9に、CdTeを10以上にすることを推奨。\\
   detch & Int\_t &  使用していないchは、ここでは記入する必要なし。\\
@@ -50,6 +51,7 @@ ASICID, ASICCHとDETID, DETCHとの対応付をするデータである。
    delta\_y  & Double\_t & 位置情報を持たない場合は、"-1"を入れる。負値から、ストリップ方向を認識する。\\
    delta\_z  & Double\_t & \\
    badch & Int\_t & 0: Good Channel 1: Bad Channel \\
+   ethre & Double\_t  (keV) & チャンネルごとに設定したエネルギースレッショルド。lv2ファイル生成時に使うことを想定。 \\
    \hline
   \end{tabular}
 \end{table}
@@ -76,44 +78,62 @@ hitttree\_lv3 は、マージされたストリップシグナルを元に、ヒ
 各ブランチは、データベースの値をコピーした値になっている。
 1番目以外は、全て可変長配列。
 \begin{table}[htb]
+\begin{center}
   \begin{tabular}{|c|c|c|} \hline
-  Branch名 & 型 & 説明 \\ \hline
- nsignal\_lv1 &  Int\_t & シグナル数\\ 
-detid\_lv1[nsignal\_lv1] &  Int\_t & \\ 
-detch\_lv1[nsignal\_lv1] &   Int\_t & \\ 
-remapch\_lv1[nsignal\_lv1] &  Int\_t & \\ 
-detector\_material\_lv1[nsignal\_lv1] & Int\_t & \\ 
-detector\_HV\_lv1[nsignal\_lv1]  & Int\_t & \\
-epi\_lv1[nsignal\_lv1]    & Double\_t & \\     
-pos\_x\_lv1[nsignal\_lv1]   & Double\_t & \\ 
-pos\_y\_lv1[nsignal\_lv1]   & Double\_t & \\ \
-pos\_z\_lv1[nsignal\_lv1]   & Double\_t & \\ 
-delta\_x\_lv1[nsignal\_lv1] & Double\_t & \\ 
-delta\_y\_lv1[nsignal\_lv1]  & Double\_t & \\ 
-delta\_z\_lv1[nsignal\_lv1]  & Double\_t & \\ \hline
+  型 & Branch名  & 説明 \\ \hline
+        Int\_t & ndetector\_lv1& \\
+        Int\_t & detid\_lv1[ndetector\_lv1]& \\
+        Int\_t & material\_lv1[ndetector\_lv1]& \\
+        Int\_t & nsignal\_x\_lv1[ndetector\_lv1]& \\
+        Int\_t & nsignal\_y\_lv1[ndetector\_lv1]& \\
+        Int\_t & detch\_x\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Int\_t & detch\_y\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & epi\_x\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & epi\_y\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & ethre\_x\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & ethre\_y\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & pos\_x\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & delta\_x\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & pos\_y\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & delta\_y\_lv1[ndetector\_lv1][MAX\_N\_SIGNAL]& \\
+        Double\_t & pos\_z\_lv1[ndetector\_lv1]& \\
+        Double\_t & delta\_z\_lv1[ndetector\_lv1]& \\ 
+   \hline
   \end{tabular}
+    \caption{hittree\_lv1}
+    \end{center}
 \end{table}
 
 \subsection{hitttree\_lv2}
 マージアルゴリズムを適用した後のシグナル情報。
 posやdeltaは、マージアルゴリズム内で計算する必要あり。
 \begin{table}[htb]
+\begin{center}
   \begin{tabular}{|c|c|c|} \hline
-  Branch名 & 型 & 説明 \\ \hline
-nsignal\_lv2 & Int\_t & \\
-detid\_lv2[nsignal\_lv2] & Int\_t & \\
-detector\_material\_lv2[nsignal\_lv2] & Int\_t & \\
-detector\_HV\_lv2[nsignal\_lv2] & Int\_t & \\
-n\_merged\_signal\_lv2[nsignal\_lv2] & Int\_t & 各シグナルにおいて、マージに使用した元のシグナル数\\
-pos\_x\_lv2[nsignal\_lv2] & Double\_t & \\
-pos\_y\_lv2[nsignal\_lv2] & Double\_t & \\
-pos\_z\_lv2[nsignal\_lv2] & Double\_t & \\
-delta\_x\_lv2[nsignal\_lv2] & Double\_t & \\
-delta\_y\_lv2[nsignal\_lv2] & Double\_t & \\
-delta\_z\_lv2[nsignal\_lv2] & Double\_t & \\
-epi\_lv2[nsignal\_lv2] & Double\_t & \\
+型 & Branch名 & 説明 \\ \hline
+Int\_t & ndetector\_lv2& \\
+Int\_t & detid\_lv2[ndetector\_lv2]& \\
+Int\_t & material\_lv2[ndetector\_lv2]& \\
+Int\_t &nsignal\_x\_lv2[ndetector\_lv2]& \\
+Int\_t &nsignal\_y\_lv2[ndetector\_lv2]& \\
+Int\_t &n\_merged\_strips\_x\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Int\_t &n\_merged\_strips\_y\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Int\_t &detch\_array\_x\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL][MAX\_N\_SIGNAL\_2]& \\
+Int\_t &detch\_array\_y\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL][MAX\_N\_SIGNAL\_2]& \\
+Double\_t& epi\_array\_x\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL][MAX\_N\_SIGNAL\_2]& \\
+Double\_t& epi\_array\_y\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL][MAX\_N\_SIGNAL\_2]& \\
+Double\_t& epi\_x\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Double\_t& epi\_y\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Double\_t& pos\_x\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Double\_t& delta\_x\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Double\_t& pos\_y\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Double\_t& delta\_y\_lv2[ndetector\_lv2][MAX\_N\_SIGNAL]& \\
+Double\_t& pos\_z\_lv2[ndetector\_lv2]& \\
+Double\_t& delta\_z\_lv2[ndetector\_lv2]& \\
  \hline
   \end{tabular}
+  \caption{hittree\_lv2}
+   \end{center}
 \end{table}
 
 \subsection{hitttree\_lv3}
@@ -121,23 +141,34 @@ epi\_lv2[nsignal\_lv2] & Double\_t & \\
 posやdeltaは、再構成アルゴリズム内で計算する必要あり。
 
 \begin{table}[htb]
+\begin{center}
 \begin{tabular}{|c|c|c|} \hline
-Branch名 & 型 & 説明 \\ \hline
-nhit & Int\_t & reconstuct後のヒット数\\
-detid\_lv3[nhit] & Int\_t & \\
-detector\_material\_lv3[nhit] & Int\_t & \\
-pos\_x\_lv3[nhit] & Double\_t & \\
-pos\_y\_lv3[nhit] & Double\_t & \\
-pos\_z\_lv3[nhit] & Double\_t & \\
-delta\_x\_lv3[nhit] & Double\_t & \\
-delta\_y\_lv3[nhit] & Double\_t & \\
-delta\_z\_lv3[nhit] & Double\_t & \\
-epi\_lv3[nhit] & Double\_t & \\ \hline
+    型 & Branch名 & 説明 \\ \hline
+Int\_t & ndetector\_lv3& \\
+Int\_t & detid\_lv3[ndetector\_lv3]& \\
+Int\_t & material\_lv3[ndetector\_lv3]& \\
+Int\_t & nsignal\_x\_lv3[ndetector\_lv3]& \\
+Int\_t & nsignal\_y\_lv3[ndetector\_lv3]& \\
+Int\_t & nhit\_lv3[ndetector\_lv3]& \\
+Int\_t & n\_merged\_strips\_x\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Int\_t & n\_merged\_strips\_y\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & epi\_x\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & epi\_y\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & epi\_reconstructed\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & pos\_x\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & delta\_x\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & pos\_y\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & delta\_y\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & pos\_z\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+Double\_t & delta\_z\_lv3[ndetector\_lv3][MAX\_N\_HIT]& \\
+\hline
   \end{tabular}
+      \caption{hittree\_lv3}
+ \end{center}
 \end{table}
 
 \section{その他}
-asicの最大数は、100としている。
-
+配列や、ASICS数の最大値などを{\tt src/ConstantPar.hh}で設定している。
+実験システムが大きい場合は、ここを見直して、十分な値になっているか確認したほうがよい。
 
 \end{document}

@@ -113,8 +113,6 @@ void ReadDetectorDatabase::load_Profile_Databese(){
     detector_profile->SetBranchAddress("delta_y", &delta_y);
     detector_profile->SetBranchAddress("delta_z", &delta_z);
     detector_profile->SetBranchAddress("badch", &badch);
-
-    //detector_profile->SetBranchAddress("pedesigma",&pedesigma);
     detector_profile->SetBranchAddress("ethre",&ethre);
 
     Long64_t nch = detector_profile->GetEntries();
@@ -144,7 +142,7 @@ void ReadDetectorDatabase::load_Profile_Databese(){
 
 void ReadDetectorDatabase::load_Calfunc_Databese(){
     for(auto itr = vec_asicid_and_asicch.begin(); itr != vec_asicid_and_asicch.end(); ++itr){
-        if(isBlackch(*itr)){
+        if(isBlankch(*itr)){
             continue;
         }
 

@@ -13,7 +13,7 @@ class MyApp < ANL::ANLApp
 
   def setup()
     @filename = ARGV[0]
-    @outfilename = File.basename(@filename,".root")+"_hittree_lv1.root"
+    @outfilename = File.basename(@filename,".root")+"_hittree_lv123.root"
     @map_filename = "map.root"
     @profile_filename = "profile.root"
     @calfunc_filename = "rename_spline_maxbin_no17.root"
@@ -35,10 +35,14 @@ class MyApp < ANL::ANLApp
 
     chain :DataProcess_lv1
 
+    chain :DataProcess_lv2_merge
+
+    chain :DataProcess_lv3_reconstruct
+
     chain :WriteTree
     with_parameters(write_lv1: true,
-                    write_lv2: false,
-                    write_lv3: false,
+                    write_lv2: true,
+                    write_lv3: true,
                     treename: "hittree", 
                     clone_inputTree: true,
                     inputtree_is_eventtree?: true)    

@@ -17,6 +17,7 @@ ROOT.gROOT.ProcessLine(\
     Double_t delta_y ;\
     Double_t delta_z ;\
     Int_t badch;\
+    Double_t ethre;\
     };")
 
 def main(infilename):
@@ -38,11 +39,13 @@ def main(infilename):
     detector_profile.Branch("delta_y", ROOT.AddressOf(profile_t, "delta_y"), "delta_y/D")
     detector_profile.Branch("delta_z", ROOT.AddressOf(profile_t, "delta_z"), "delta_z/D")
     detector_profile.Branch("badch", ROOT.AddressOf(profile_t, "badch"), "badch/I")
+    detector_profile.Branch("ethre", ROOT.AddressOf(profile_t, "ethre"), "ethre/D")
 
     infile.readline()
 
     for line in infile:
         linearray = line.split(" ")
+        print linearray
 
         profile_t.detid = int(linearray[0])
         profile_t.detch = int(linearray[1])
@@ -55,6 +58,7 @@ def main(infilename):
         profile_t.delta_y = float(linearray[8])
         profile_t.delta_z = float(linearray[9])
         profile_t.badch = int(linearray[10])
+        profile_t.ethre= float(linearray[11])
 
         detector_profile.Fill()
 

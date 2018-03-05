@@ -14,18 +14,34 @@ class MyApp < ANL::ANLApp
   def setup()
     @filename = ARGV[0]
     @outfilename = File.basename(@filename,"_hittree_lv2.root")+"_hittree_lv3.root"
+    @map_filename = "map.root"
+    @profile_filename = "profile.root"
+    @calfunc_filename = "rename_spline_maxbin_no17.root"
 
     chain :SaveData
     with_parameters(output: @outfilename)    
 
     chain :EventDataBuffer
 
-    chain :ReadHitTree_lv2
-    with_parameters(file_list: [@filename])    
+    chain :ReadDetectorDatabase
+    with_parameters(map_file: @map_filename,
+                    profile_file: @profile_filename,
+                    calfunc_file: @calfunc_filename)    
+
+    chain :ReadInputTree
+    with_parameters(file_list: [@filename],
+                    inputdata_level: 2,
+                    treename: "hittree")    
 
     chain :DataProcess_lv3_reconstruct
 
-    chain :WriteHitTree_lv3
+    chain :WriteTree
+    with_parameters(write_lv1: false,
+                    write_lv2: false,
+                    write_lv3: true,
+                    treename: "hittree", 
+                    clone_inputTree: false,
+                    inputtree_is_eventtree?: false)    
 
   end
 end

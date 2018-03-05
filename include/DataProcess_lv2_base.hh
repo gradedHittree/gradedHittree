@@ -22,7 +22,6 @@ public:
   DataProcess_lv2_base();
   ~DataProcess_lv2_base() = default;
 
-  anl::ANLStatus mod_startup();
   anl::ANLStatus mod_init();
   anl::ANLStatus mod_ana();
 

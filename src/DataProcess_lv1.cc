@@ -24,19 +24,22 @@ ANLStatus DataProcess_lv1::mod_init()
   GetANLModule("ReadDetectorDatabase", &readDetectorDatabase_);
   GetANLModule("EventDataBuffer", &eventDataBuffer_);
 
+  eventData_common = eventDataBuffer_->getEventData_common();
   eventData_lv0 = eventDataBuffer_->getEventData_lv0();
   eventData_lv1 = eventDataBuffer_->getEventData_lv1();
+
+  eventData_common->eventID = 0;
 
   return AS_OK;
 }
 
 ANLStatus DataProcess_lv1::mod_ana()
 {
-//  eventData_lv0 = readEventTree_->getEventData();
   eventData_lv1->ResetData();
-  //std::cout << "test DataProcess_lv1" << std::endl;
+  eventData_common->eventID += 1;
 
   int nsignal_lv1 = 0;
+
   for(int isignal = 0; isignal < eventData_lv0->get_nsignal(); ++isignal){
         int asicid = eventData_lv0->get_asicid(isignal);
         int asicch = eventData_lv0->get_asicch(isignal);
@@ -44,7 +47,7 @@ ANLStatus DataProcess_lv1::mod_ana()
 
         std::pair<int, int> p_asicid_and_asicch = std::make_pair(asicid, asicch);
 
-        if(readDetectorDatabase_->isBlackch(p_asicid_and_asicch)){
+        if(readDetectorDatabase_->isBlankch(p_asicid_and_asicch)){
             continue;
         }
         if(readDetectorDatabase_->isBadch(p_asicid_and_asicch)){
@@ -52,39 +55,56 @@ ANLStatus DataProcess_lv1::mod_ana()
         }
 
         int detid = readDetectorDatabase_->get_detid(p_asicid_and_asicch);
-        eventData_lv1->set_detid(detid);
         int detch = readDetectorDatabase_->get_detch(p_asicid_and_asicch);
-        eventData_lv1->set_detch(detch);
         int remapch = readDetectorDatabase_->get_remapch(p_asicid_and_asicch);
-        eventData_lv1->set_remapch(remapch);
         int detector_material = readDetectorDatabase_->get_detector_material(p_asicid_and_asicch);
-        eventData_lv1->set_detector_material(detector_material);
         int detector_HV = readDetectorDatabase_->get_detector_HV(p_asicid_and_asicch);
-        eventData_lv1->set_detector_HV(detector_HV);
         double pos_x = readDetectorDatabase_->get_pos_x(p_asicid_and_asicch);
-        eventData_lv1->set_pos_x(pos_x);
         double pos_y = readDetectorDatabase_->get_pos_y(p_asicid_and_asicch);
-        eventData_lv1->set_pos_y(pos_y);
         double pos_z = readDetectorDatabase_->get_pos_z(p_asicid_and_asicch);
-        eventData_lv1->set_pos_z(pos_z);
         double delta_x = readDetectorDatabase_->get_delta_x(p_asicid_and_asicch);
-        eventData_lv1->set_delta_x(delta_x);
         double delta_y = readDetectorDatabase_->get_delta_y(p_asicid_and_asicch);
-        eventData_lv1->set_delta_y(delta_y);
         double delta_z = readDetectorDatabase_->get_delta_z(p_asicid_and_asicch);
-        eventData_lv1->set_delta_z(delta_z);
-	//double pedesigma = readDetectorDatabase_->get_pedesigma(p_asicid_and_asicch);
-	//eventData_lv1->set_pedesigma(pedesigma);
-	double ethre = readDetectorDatabase_->get_ethre(p_asicid_and_asicch);
-	eventData_lv1->set_ethre(ethre);
-	
+	    double ethre = readDetectorDatabase_->get_ethre(p_asicid_and_asicch);
         double epi = getEPI(p_asicid_and_asicch, adc);
-        eventData_lv1->set_epi(epi);
-	
+        
+        int idet = -1;
+        for(int _idet = 0; _idet < eventData_lv1->ndetector_lv1; ++_idet){
+            if(eventData_lv1->detid_lv1[_idet] == detid){
+                idet = _idet;
+            }
+        }
+        if(idet == -1){ //new detector
+            idet = eventData_lv1->ndetector_lv1; 
+            eventData_lv1->ndetector_lv1 += 1;
+            eventData_lv1->detid_lv1[idet] = detid;
+            eventData_lv1->material_lv1[idet] = detector_material;
+            eventData_lv1->pos_z_lv1[idet] = pos_z;
+            eventData_lv1->delta_z_lv1[idet] = delta_z;
+        }
+
+        if(delta_x < 0){
+            int isig = eventData_lv1->nsignal_y_lv1[idet];
+            eventData_lv1->nsignal_y_lv1[idet] +=1;
+            eventData_lv1->detch_y_lv1[idet][isig] = detch;
+            eventData_lv1->epi_y_lv1[idet][isig] = epi;
+            eventData_lv1->pos_y_lv1[idet][isig] = pos_y;
+            eventData_lv1->delta_y_lv1[idet][isig] = delta_y;
+            eventData_lv1->ethre_y_lv1[idet][isig] = ethre;
+        }else if(delta_y < 0){
+            int isig = eventData_lv1->nsignal_x_lv1[idet];
+            eventData_lv1->nsignal_x_lv1[idet] +=1;
+            eventData_lv1->detch_x_lv1[idet][isig] = detch;
+            eventData_lv1->epi_x_lv1[idet][isig] = epi;
+            eventData_lv1->pos_x_lv1[idet][isig] = pos_x;
+            eventData_lv1->delta_x_lv1[idet][isig] = delta_x;
+            eventData_lv1->ethre_x_lv1[idet][isig] = ethre;
+        }else{
+            return AS_QUIT_ERR;
+        }
+
         ++nsignal_lv1;
   }
-  eventData_lv1->set_nsignal(nsignal_lv1);
-  //std::cout << "test DataProcess_lv1" << std::endl;
 
   return AS_OK;
 }

@@ -92,13 +92,9 @@ set(ANL_MODULES
   src/DataProcess_lv3_base.cc
   src/DataProcess_lv3_reconstruct.cc
   src/ReadDetectorDatabase.cc
-  src/ReadEventTree.cc
-  src/ReadHitTree_lv1.cc
-  src/ReadHitTree_lv2.cc
+  src/ReadInputTree.cc
   src/SaveData.cc
-  src/WriteHitTree_lv1.cc
-  src/WriteHitTree_lv2.cc
-  src/WriteHitTree_lv3.cc
+  src/WriteTree.cc
   )
 
 add_library(${MY_LIBRARY} SHARED

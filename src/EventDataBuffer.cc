@@ -14,6 +14,7 @@ ANLStatus EventDataBuffer::mod_startup()
 
 ANLStatus EventDataBuffer::mod_init()
 {
+  eventData_common = new EventData_common();
   eventData_lv0 = new EventData_lv0();
   eventData_lv1 = new EventData_lv1();
   eventData_lv2 = new EventData_lv2();

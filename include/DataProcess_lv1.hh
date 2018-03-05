@@ -20,7 +20,7 @@ namespace hittree_gen{
 
 class DataProcess_lv1: public anl::BasicModule
 {
-  DEFINE_ANL_MODULE(DataProcess_lv1, 1.0);
+  DEFINE_ANL_MODULE(DataProcess_lv1, 2.0);
 public:
   DataProcess_lv1();
   ~DataProcess_lv1() = default;
@@ -33,6 +33,7 @@ private:
   TRandom3 random;
   int random_mode;
 
+  EventData_common *eventData_common;
   EventData_lv0 *eventData_lv0;
   EventData_lv1 *eventData_lv1;
   const ReadDetectorDatabase *readDetectorDatabase_;
@@ -41,6 +42,6 @@ private:
   double getEPI(std::pair<int, int> p_asicid_and_asicch, int adc);
 };
 
-} /* namespace comptonsoft */
+} 
 
 #endif 
